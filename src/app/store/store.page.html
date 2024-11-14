@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- Кнопка для открытия бокового меню -->
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>SPORTS STORE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Боковое меню -->
+<ion-menu contentId="main-content" side="start" menuId="first">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <!-- Кнопка "Home" -->
+      <ion-item button (click)="changeCategory(undefined)">
+        Home
+      </ion-item>
+
+      <!-- Кнопки категорий -->
+      <ion-item *ngFor="let cat of categories" button (click)="changeCategory(cat)"
+                [class.active]="cat === selectedCategory">
+        {{ cat }}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- Основное содержимое страницы -->
+<ion-content id="main-content" [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <!-- Product List -->
+      <ion-col size="12">
+        <ion-card *ngFor="let product of products">
+          <ion-card-header>
+            <ion-card-title>{{ product.name }}</ion-card-title>
+            <ion-badge slot="end" color="primary">{{ product.price | currency:"USD":true:"2.2-2" }}</ion-badge>
+          </ion-card-header>
+          <ion-card-content>
+            {{ product.description }}
+          </ion-card-content>
+          <ion-button expand="block" color="success" (click)="addProductToCart(product)">Add To Cart</ion-button>
+        </ion-card>
+
+        <!-- Pagination Controls -->
+        <ion-item lines="none">
+          <ion-label>Items per Page:</ion-label>
+          <ion-select [value]="productsPerPage" (ionChange)="changePageSize($event)">
+            <ion-select-option value="3">3 per Page</ion-select-option>
+            <ion-select-option value="4">4 per Page</ion-select-option>
+            <ion-select-option value="6">6 per Page</ion-select-option>
+            <ion-select-option value="8">8 per Page</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+
+        <ion-button *counter="let page of pageCount" (click)="changePage(page)"
+                    [color]="page === selectedPage ? 'secondary' : 'primary'">
+          {{ page }}
+        </ion-button>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,57 @@
+.cart-container {
+  padding: 1rem;
+
+  .cart-header {
+    margin-bottom: 1rem;
+  }
+
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #f9f9f9;
+
+    ion-row {
+      border-bottom: 1px solid #ddd;
+    }
+
+    ion-row:last-child {
+      border-bottom: none;
+    }
+
+    ion-col {
+      padding: 0.5rem;
+      text-align: center;
+
+      &:first-child {
+        text-align: left;
+      }
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        text-align: right;
+      }
+    }
+
+    ion-input {
+      width: 100%;
+      max-width: 60px;
+      text-align: center;
+    }
+
+    .ion-button {
+      margin: 0;
+      padding: 0.3rem;
+    }
+  }
+
+  .total-row {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  ion-button {
+    margin: 1rem 0.5rem;
+  }
+}

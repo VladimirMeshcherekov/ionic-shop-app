@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>SPORTS STORE</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <h2 class="text-center">Your Cart</h2>
+
+        <ion-row class="table-header">
+          <ion-col>Quantity</ion-col>
+          <ion-col>Product</ion-col>
+          <ion-col class="text-right">Price</ion-col>
+          <ion-col class="text-right">Subtotal</ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+
+        <!-- Empty Cart Message -->
+        <ion-row *ngIf="GetCart().lines.length === 0">
+          <ion-col colspan="5" class="text-center">Your cart is empty</ion-col>
+        </ion-row>
+
+        <!-- Cart Items -->
+        <ion-row *ngFor="let line of GetCart().lines">
+          <ion-col size="2">
+            <ion-input type="number" [value]="line.quantity" min="0"
+                       (ionChange)="GetCart().updateQuantity(line.product, $event)"
+                       class="input-quantity"></ion-input>
+          </ion-col>
+          <ion-col>{{ line.product.name }}</ion-col>
+          <ion-col class="text-right">{{ line.product.price | currency:"USD":true:"2.2-2" }}</ion-col>
+          <ion-col class="text-right">{{ line.lineTotal | currency:"USD":true:"2.2-2" }}</ion-col>
+          <ion-col class="text-center">
+            <ion-button size="small" color="danger" (click)="GetCart().removeLine(line.product.id)">
+              Remove
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <!-- Total -->
+        <ion-row class="table-footer">
+          <ion-col size="9" class="text-right">Total:</ion-col>
+          <ion-col class="text-right">{{ GetCart().cartPrice | currency:"USD":true:"2.2-2" }}</ion-col>
+        </ion-row>
+
+
+        <!-- Buttons for Continue Shopping and Checkout -->
+        <div class="buttons-container">
+          <ion-button expand="block" color="primary" [routerLink]="['/tabs/store']">Continue Shopping</ion-button>
+          <ion-button expand="block" color="secondary" [disabled]="GetCart().lines.length === 0" routerLink="/checkout">
+            Checkout
+          </ion-button>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
